@@ -32,16 +32,21 @@ namespace Employees
             if (data is Employee)
             {
                 Employee emp = (Employee)data;
-                string name = "";
-                string value= "";
+                string nameStock = "";
+                string valueStock= "";
+                string nameReport = "";
+                string valueReport = "";
 
-                emp.GetSpareProp1(ref name, ref value);
-                this.SpareProp1Name.Content = name;
-                this.SpareProp1Value.Content = value;
+                emp.GetSpareProp1(ref nameStock, ref valueStock);
+                this.SpareProp1Name.Content = nameStock;
+                this.SpareProp1Value.Content = valueStock;
                 SpareProp1.Visibility = Visibility.Visible;
 
 
-                //emp.GetSpareProp2(ref name, ref value);
+                emp.GetSpareProp2(ref nameReport, ref valueReport);
+                this.SpareProp2Name.Content = nameReport;
+                this.SpareProp2Value.Content = valueReport;
+                SpareProp2.Visibility = Visibility.Visible;
             }
         }
     }

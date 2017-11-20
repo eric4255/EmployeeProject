@@ -97,6 +97,8 @@ namespace Employees
         public string SocialSecurityNumber { get { return empSSN; } }
         public string embBenefitPackage { get { return empBenefits.ToString(); } }
         public virtual string Role { get { return GetType().ToString().Substring(10); } }
+        public string GetName()
+        { return FirstName; }
 
         // Expose object through a read-only property.
         public BenefitPackage Benefits
@@ -226,6 +228,7 @@ namespace Employees
             empBenefits = new GoldBenefitPackage();
             StockOptions = 10000;
         }
+        private List<Employee> _reports = new List<Employee>();
 
         public Executive(string firstName, string lastName, DateTime age, float currPay, 
                          string ssn, int numbOfOpts = 10000, ExecTitle title = ExecTitle.VP)
@@ -246,8 +249,12 @@ namespace Employees
 
         public override void GetSpareProp2(ref string name, ref string value)
         {
-            name = "Stock Options:";
-            value = StockOptions.ToString();
+            name = "Reports:";
+            foreach (Employee report in _reports)
+            {
+                //value = report.GetName();
+                value += report.GetName() + " ";
+            }
         }
     }
 
@@ -273,12 +280,25 @@ namespace Employees
 
         // Stock options unique to Managers
         public int StockOptions { get; set; }
+
         #endregion
         public override void GetSpareProp1(ref string name, ref string value)
         {
             name = "Stock Options:";
             value = StockOptions.ToString();
         }
+
+        public override void GetSpareProp2(ref string name, ref string value)
+        {
+            name = "Reports:";
+            foreach (Employee report in _reports)
+            {
+                //value = report.GetName();
+                value+= report.GetName() +" ";
+            } 
+        }
+
+        
         #region Exceptions
         // Exception raised when adding more than MaxReports to a Manager
         [System.Serializable]
@@ -400,13 +420,6 @@ namespace Employees
         }
         #endregion
         public override string Role { get { return base.Role; } }
-        //public override void GetSpareProp1(ref string name, ref string value)
-        //{
-        //    name = "Stock Options:";
-        //    value = StockOptions.ToString();
-        //}
-
-
     }
 
     class SalesPerson : Employee
@@ -536,9 +549,6 @@ namespace Employees
             }
         }
         #endregion
-
-
-
 
         public CompHome()
         {
