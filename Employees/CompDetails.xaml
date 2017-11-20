@@ -80,7 +80,7 @@
             <!-- Benefits -->
             <StackPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal">
                 <Label Style="{StaticResource labelStyle}">Benefits:</Label>
-                <Label Style="{StaticResource labelStyle}" Content="{Binding ID}"/>
+                <Label Style="{StaticResource labelStyle}" Content="{Binding embBenefitPackage}"/>
             </StackPanel>
 
             <!-- Stock Options -->

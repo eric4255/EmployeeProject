@@ -95,6 +95,7 @@ namespace Employees
         public int Age { get { return today.Year - empDOB.Year; } }
         public DateTime DateOfBirth { get { return empDOB; } }
         public string SocialSecurityNumber { get { return empSSN; } }
+        public string embBenefitPackage { get { return empBenefits.ToString(); } }
         public virtual string Role { get { return GetType().ToString().Substring(10); } }
 
         // Expose object through a read-only property.
