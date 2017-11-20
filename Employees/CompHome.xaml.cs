@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Collections;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 using System.IO;
 
 namespace Employees
@@ -106,6 +107,16 @@ namespace Employees
             get { return empBenefits; }
         }
         #endregion
+        
+        #region Serialization customization for NextId
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            // Called when the deserialization process is complete.
+            if (eID > empID) empID = eID + 1;
+        }
+        #endregion
+
 
         // Contain a BenefitPackage object.
         public double GetBenefitCost()
