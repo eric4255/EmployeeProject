@@ -28,18 +28,64 @@ namespace Employees
 
     public enum ShiftName { One, Two, Three }
 
+    //public class BenefitPackage
+    //{
+    //    public BenefitPackageLevel level;
+
+    //    // A custom enumeration for Benefit Package Level
+    //    public enum BenefitPackageLevel
+    //    {
+    //        Standard,
+    //        Gold,
+    //        Platinum
+    //    }
+
+
+    //    public BenefitPackage()
+    //        : this(BenefitPackageLevel.Standard)
+    //    {
+    //    }
+
+    //    public BenefitPackage(BenefitPackageLevel bpLevel)
+    //    {
+    //        this.level = bpLevel;
+    //    }
+
+
+    //    public BenefitPackageLevel GetPackageLevel()
+    //    {
+    //        return level;
+    //    }
+
+    //    //ComputePayDeduction depends on Benefit Package Level and costs 125.00,
+    //    //150.00, and 200.00 for Standard, Gold, and Platinum, respectively
+
+    //    public double ComputePayDeduction()
+    //    {
+    //        if (level == BenefitPackageLevel.Standard)
+    //            return 125.0;
+    //        else if (level == BenefitPackageLevel.Gold)
+    //            return 150.0;
+    //        else
+    //            return 200.0;
+    //    }
+    //}
+
+
     public class Employee
     {
 
 
         // Field data.
         public string Name { get { return FirstName + " " + LastName; } }
+
         static private int empID = 1;
         private int eID;
         private float currPay;
         private DateTime empDOB;
         private string empSSN;
         DateTime today = DateTime.Now;
+        protected BenefitPackage empBenefits = new BenefitPackage();
 
         #region Properties 
         public string FirstName { get; }
@@ -50,13 +96,60 @@ namespace Employees
         public DateTime DateOfBirth { get { return empDOB; } }
         public string SocialSecurityNumber { get { return empSSN; } }
         public virtual string Role { get { return GetType().ToString().Substring(10); } }
+
+        // Expose object through a read-only property.
+        public BenefitPackage Benefits
+        {
+            get { return empBenefits; }
+        }
         #endregion
 
+        // Contain a BenefitPackage object.
+        public double GetBenefitCost()
+        { return empBenefits.ComputePayDeduction(); }
+
+        public virtual void GivePromotion()
+        {
+            // Bump benefit package from Standard to Gold, Gold to Platinum
+            if (empBenefits.GetType() == typeof(BenefitPackage))
+                empBenefits = new GoldBenefitPackage();
+            else if (empBenefits is GoldBenefitPackage)
+                empBenefits = new PlatinumBenefitPackage();
+        }
+        #region
+        public class BenefitPackage
+        {
+            // Assume we have other members that represent
+            // dental/health benefits, and so on.
+            
+            public override string ToString() { return "Standard"; }
+            public virtual double ComputePayDeduction() { return 125.0; }
+        }
+
+        // Other benefit packages derive from BenefitPackage directly
+        // and provide definitions for ComputePayDeduction and ToString
+        sealed public class GoldBenefitPackage : BenefitPackage
+        {
+            public override double ComputePayDeduction() { return 150.0; }
+            public override string ToString() { return "Gold"; }
+        }
+        sealed public class PlatinumBenefitPackage : BenefitPackage
+        {
+            public override double ComputePayDeduction() { return 250.0; }
+            public override string ToString() { return "Platinum"; }
+        }
+        #endregion
+
+
+        // Expose object through a custom property.
+
         public Employee() { }
-        public Employee(string firstName, string lastName, DateTime date, float pay, string ssn)
+        public Employee(string firstName, string lastName, DateTime date, float pay,  string ssn)
         {
             int id = empID;//provides unique id for each employee
             this.eID = id;
+            empDOB = date;
+            empSSN = ssn;
             empID++;
             FirstName = firstName;
             LastName = lastName;
@@ -101,47 +194,7 @@ namespace Employees
                     throw new ArgumentException("Parameter is not an Employee!");
             }
         }
-        public class BenefitPackage
-        {
-            // Assume we have other members that represent
-            // dental/health benefits, and so on.
-            public virtual double ComputePayDeduction() { return 125.0; }
-            public override string ToString() { return "Standard"; }
-        }
-
-        // Other benefit packages derive from BenefitPackage directly
-        // and provide definitions for ComputePayDeduction and ToString
-        sealed public class GoldBenefitPackage : BenefitPackage
-        {
-            public override double ComputePayDeduction() { return 150.0; }
-            public override string ToString() { return "Gold"; }
-        }
-        sealed public class PlatinumBenefitPackage : BenefitPackage
-        {
-            public override double ComputePayDeduction() { return 250.0; }
-            public override string ToString() { return "Platinum"; }
-        }
-
-        // Contain a BenefitPackage object.
-        protected BenefitPackage empBenefits = new BenefitPackage();
-        public double GetBenefitCost()
-        { return empBenefits.ComputePayDeduction(); }
-
-        // Expose object through a read-only property.
-        public BenefitPackage Benefits
-        {
-            get { return empBenefits; }
-        }
-        #endregion
-        public virtual void GivePromotion()
-        {
-            // Bump benefit package from Standard to Gold, Gold to Platinum
-            if (empBenefits.GetType() == typeof(BenefitPackage))
-                empBenefits = new GoldBenefitPackage();
-            else if (empBenefits is GoldBenefitPackage)
-                empBenefits = new PlatinumBenefitPackage();
-        }
-
+#endregion
         public virtual void DisplayStats()
         {
             Console.WriteLine("Name: {0}", Name);
@@ -150,6 +203,7 @@ namespace Employees
             Console.WriteLine("Age: {0}", Age);
             Console.WriteLine("Pay: {0:C}", Pay);
             Console.WriteLine("SSN: {0}", SocialSecurityNumber);
+            Console.WriteLine("Benefits: {0}", empBenefits);
         }
         #region Class methods 
         public virtual void GiveBonus(float amount)
@@ -172,7 +226,7 @@ namespace Employees
             StockOptions = 10000;
         }
 
-        public Executive(string firstName, string lastName, DateTime age, float currPay,
+        public Executive(string firstName, string lastName, DateTime age, float currPay, 
                          string ssn, int numbOfOpts = 10000, ExecTitle title = ExecTitle.VP)
           : base(firstName, lastName, age, currPay, ssn, numbOfOpts)
         {
@@ -312,7 +366,7 @@ namespace Employees
     sealed class PTSalesPerson : SalesPerson
     {
         public PTSalesPerson(string firstName, string lastName, DateTime age,
-                             float currPay, string ssn, int numbOfSales)
+                             float currPay,  string ssn, int numbOfSales)
           : base(firstName, lastName, age, currPay, ssn, numbOfSales)
         {
         }
@@ -326,8 +380,8 @@ namespace Employees
         public Engineer() { }
 
         public Engineer(string firstName, string lastName, DateTime age,
-                       float currPay, string ssn, DegreeName degree)
-          : base(firstName, lastName, age, currPay, ssn)
+                       float currPay,  string ssn, DegreeName degree)
+          : base(firstName, lastName, age, currPay,  ssn)
         {
             // This property is defined by the Engineer class.
             HighestDegree = degree;
@@ -351,7 +405,7 @@ namespace Employees
         // As a general rule, all subclasses should explicitly call an appropriate
         // base class constructor.
         public SalesPerson(string firstName, string lastName, DateTime age,
-          float currPay, string ssn, int numbOfSales)
+          float currPay,  string ssn, int numbOfSales)
           : base(firstName, lastName, age, currPay, ssn)
         {
             // This belongs with us!
@@ -398,7 +452,7 @@ namespace Employees
         public SupportPerson() { }
 
         public SupportPerson(string firstName,string lastName, DateTime age,
-                             float currPay, string ssn, ShiftName shift)
+                             float currPay,  string ssn, ShiftName shift)
           : base(firstName, lastName, age, currPay, ssn)
         {
             // This property is defined by the SupportPerson class.
@@ -503,7 +557,6 @@ namespace Employees
                 this.NavigationService.Navigate(new CompDetails(this.dgEmps.SelectedItem));
             }
         }
-
         // Handle changes to Employee type radio buttons
         void employeeTypeRadioButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

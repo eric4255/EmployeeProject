@@ -28,6 +28,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -51,11 +56,50 @@
             <!-- Id -->
             <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
                 <Label Style="{StaticResource labelStyle}">Id:</Label>
-                <Label Style="{StaticResource labelStyle}" Content="{Binding Id}"/>
+                <Label Style="{StaticResource labelStyle}" Content="{Binding ID}"/>
             </StackPanel>
 
+            <!-- DOB -->
+            <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
+                <Label Style="{StaticResource labelStyle}">DOB:</Label>
+                <Label Style="{StaticResource labelStyle}" Content="{Binding DateOfBirth}"/>
+            </StackPanel>
+
+            <!-- Age -->
+            <StackPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal">
+                <Label Style="{StaticResource labelStyle}">Age:</Label>
+                <Label Style="{StaticResource labelStyle}" Content="{Binding Age}"/>
+            </StackPanel>
+
+            <!-- SSN -->
+            <StackPanel Grid.Column="0" Grid.Row="6" Orientation="Horizontal">
+                <Label Style="{StaticResource labelStyle}">SSN:</Label>
+                <Label Style="{StaticResource labelStyle}" Content="{Binding SocialSecurityNumber}"/>
+            </StackPanel>
+
+            <!-- Benefits -->
+            <StackPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal">
+                <Label Style="{StaticResource labelStyle}">Benefits:</Label>
+                <Label Style="{StaticResource labelStyle}" Content="{Binding ID}"/>
+            </StackPanel>
+
+            <!-- Stock Options -->
+            <StackPanel Grid.Column="0" Grid.Row="8" Orientation="Horizontal">
+                <Label Style="{StaticResource labelStyle}">Stock Options:</Label>
+                <Label Style="{StaticResource labelStyle}" Content="{Binding ID}"/>
+            </StackPanel>
+
+
+            <!-- Reports -->
+            <StackPanel Grid.Column="0" Grid.Row="9" Orientation="Horizontal">
+                <Label Style="{StaticResource labelStyle}">Reports:</Label>
+                <Label Style="{StaticResource labelStyle}" Content="{Binding ID}"/>
+            </StackPanel>
+
+
+
             <!-- Spare1 -->
-            <StackPanel Name="SpareProp1" Grid.Column="0" Grid.Row="4" Orientation="Horizontal" Visibility="Hidden">
+            <StackPanel Name="SpareProp1" Grid.Column="0" Grid.Row="10" Orientation="Horizontal" Visibility="Hidden">
                 <Label Name="SpareProp1Name" Style="{StaticResource labelStyle}">Spare1:</Label>
                 <Label Name="SpareProp1Value" Style="{StaticResource labelStyle}" Content=""/>
             </StackPanel>
