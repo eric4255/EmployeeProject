@@ -157,7 +157,7 @@ namespace Employees
         }
 
         public virtual void GetSpareProp1(ref string name, ref string value) { }
-
+        public virtual void GetSpareProp2(ref string name, ref string value) { }
         #region Employee sort oders
         // Sort employees by name.
         private class NameComparer : IComparer<Employee>
@@ -242,6 +242,13 @@ namespace Employees
             name = "Stock Options:";
             value = StockOptions.ToString();
         }
+
+
+        public override void GetSpareProp2(ref string name, ref string value)
+        {
+            name = "Stock Options:";
+            value = StockOptions.ToString();
+        }
     }
 
 
@@ -267,7 +274,11 @@ namespace Employees
         // Stock options unique to Managers
         public int StockOptions { get; set; }
         #endregion
-
+        public override void GetSpareProp1(ref string name, ref string value)
+        {
+            name = "Stock Options:";
+            value = StockOptions.ToString();
+        }
         #region Exceptions
         // Exception raised when adding more than MaxReports to a Manager
         [System.Serializable]

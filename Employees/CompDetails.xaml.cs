@@ -39,6 +39,9 @@ namespace Employees
                 this.SpareProp1Name.Content = name;
                 this.SpareProp1Value.Content = value;
                 SpareProp1.Visibility = Visibility.Visible;
+
+
+                //emp.GetSpareProp2(ref name, ref value);
             }
         }
     }

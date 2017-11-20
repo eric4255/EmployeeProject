@@ -83,26 +83,32 @@
                 <Label Style="{StaticResource labelStyle}" Content="{Binding embBenefitPackage}"/>
             </StackPanel>
 
-            <!-- Stock Options -->
+            <!-- Stock Options --><!--
             <StackPanel Grid.Column="0" Grid.Row="8" Orientation="Horizontal">
                 <Label Style="{StaticResource labelStyle}">Stock Options:</Label>
                 <Label Style="{StaticResource labelStyle}" Content="{Binding ID}"/>
             </StackPanel>
 
 
-            <!-- Reports -->
+            --><!-- Reports --><!--
             <StackPanel Grid.Column="0" Grid.Row="9" Orientation="Horizontal">
                 <Label Style="{StaticResource labelStyle}">Reports:</Label>
                 <Label Style="{StaticResource labelStyle}" Content="{Binding ID}"/>
-            </StackPanel>
-
-
+            </StackPanel>-->
 
             <!-- Spare1 -->
-            <StackPanel Name="SpareProp1" Grid.Column="0" Grid.Row="10" Orientation="Horizontal" Visibility="Hidden">
-                <Label Name="SpareProp1Name" Style="{StaticResource labelStyle}">Spare1:</Label>
+            <StackPanel Name="SpareProp1" Grid.Column="0" Grid.Row="8" Orientation="Horizontal" Visibility="Hidden">
+                <Label Name="SpareProp1Name" Style="{StaticResource labelStyle}">Stock Options:</Label>
                 <Label Name="SpareProp1Value" Style="{StaticResource labelStyle}" Content=""/>
             </StackPanel>
+
+            <!-- Spare2 -->
+            <StackPanel Name="SpareProp2" Grid.Column="0" Grid.Row="9" Orientation="Horizontal" Visibility="Hidden">
+                <Label Name="SpareProp2Name" Style="{StaticResource labelStyle}">Reports:</Label>
+                <Label Name="SpareProp2Value" Style="{StaticResource labelStyle}" Content="{Binding ID}"/>
+            </StackPanel>
+            
+            
         </Grid>
      </Grid>
 </Page>
