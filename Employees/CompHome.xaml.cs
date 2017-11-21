@@ -623,7 +623,7 @@ namespace Employees
         {
             // Only choices are All (0) or Executives (1)
             if (this.employeeTypeRadioButtons.SelectedIndex == 1)
-                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is Executive);
+                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is Executive||obj  is Manager);
             else if(this.employeeTypeRadioButtons.SelectedIndex == 2)
                 dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is SalesPerson|| obj is PTSalesPerson);
             else if (this.employeeTypeRadioButtons.SelectedIndex == 3)
