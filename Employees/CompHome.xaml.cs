@@ -24,53 +24,11 @@ namespace Employees
     // Engineers have degrees
     [Serializable]
     public enum DegreeName { BS, MS, PhD }
-
+    [Serializable]
     public enum ExecTitle { CEO, CTO, CFO, VP }
-
+    [Serializable]
     public enum ShiftName { One, Two, Three }
-
-    //public class BenefitPackage
-    //{
-    //    public BenefitPackageLevel level;
-
-    //    // A custom enumeration for Benefit Package Level
-    //    public enum BenefitPackageLevel
-    //    {
-    //        Standard,
-    //        Gold,
-    //        Platinum
-    //    }
-
-
-    //    public BenefitPackage()
-    //        : this(BenefitPackageLevel.Standard)
-    //    {
-    //    }
-
-    //    public BenefitPackage(BenefitPackageLevel bpLevel)
-    //    {
-    //        this.level = bpLevel;
-    //    }
-
-
-    //    public BenefitPackageLevel GetPackageLevel()
-    //    {
-    //        return level;
-    //    }
-
-    //    //ComputePayDeduction depends on Benefit Package Level and costs 125.00,
-    //    //150.00, and 200.00 for Standard, Gold, and Platinum, respectively
-
-    //    public double ComputePayDeduction()
-    //    {
-    //        if (level == BenefitPackageLevel.Standard)
-    //            return 125.0;
-    //        else if (level == BenefitPackageLevel.Gold)
-    //            return 150.0;
-    //        else
-    //            return 200.0;
-    //    }
-    //}
+    [Serializable]
 
 
     public class Employee
@@ -131,6 +89,7 @@ namespace Employees
                 empBenefits = new PlatinumBenefitPackage();
         }
         #region
+        [Serializable]
         public class BenefitPackage
         {
             // Assume we have other members that represent
@@ -142,6 +101,7 @@ namespace Employees
 
         // Other benefit packages derive from BenefitPackage directly
         // and provide definitions for ComputePayDeduction and ToString
+        [Serializable]
         sealed public class GoldBenefitPackage : BenefitPackage
         {
             public override double ComputePayDeduction() { return 150.0; }
@@ -178,6 +138,7 @@ namespace Employees
 
         #region Employee sort oders
         // Sort employees by name.
+        [Serializable]
         private class NameComparer : IComparer<Employee>
         {
             // Compare the name of each object.
@@ -190,6 +151,7 @@ namespace Employees
         }
 
         // Sort by age
+        [Serializable]
         private class AgeComparer : IComparer<Employee>
         {
             // Compare the Age of each object.
@@ -202,6 +164,7 @@ namespace Employees
         }
 
         // Sort By pay
+        [Serializable]
         private class PayComparer : IComparer<Employee>
         {
             // Compare the Pay of each object.
@@ -233,7 +196,7 @@ namespace Employees
         public static IComparer<Employee> SortByAge { get; } = new AgeComparer();
         public static IComparer<Employee> SortByPay { get; } = new PayComparer();
     }
-
+    [Serializable]
     public class Executive : Manager
     {
         public ExecTitle Title { get; set; } = ExecTitle.VP;
@@ -274,7 +237,7 @@ namespace Employees
         }
     }
 
-
+    [Serializable]
     public class Manager : Employee, IEnumerable<Employee>
     {
         #region constructors 
@@ -410,7 +373,7 @@ namespace Employees
         }
         #endregion
     }
-
+    [Serializable]
     sealed class PTSalesPerson : SalesPerson
     {
         public PTSalesPerson(string firstName, string lastName, DateTime age,
@@ -424,7 +387,7 @@ namespace Employees
             value = SalesNumber.ToString();
         }
     }
-
+    [Serializable]
     public class Engineer : Employee
     {
         public DegreeName HighestDegree { get; set; } = DegreeName.BS;
@@ -448,7 +411,7 @@ namespace Employees
             value = HighestDegree.ToString();
         }
     }
-
+    [Serializable]
     class SalesPerson : Employee
     {
         #region constructors 
@@ -502,6 +465,8 @@ namespace Employees
             value = SalesNumber.ToString();
         }
     }
+
+    [Serializable]
     public class SupportPerson : Employee
     {
         public ShiftName Shift { get; set; } = ShiftName.One;
@@ -531,7 +496,7 @@ namespace Employees
         }
     }
 
-
+    [Serializable]
     public class EmployeeList : List<Employee>
     {
         public EmployeeList()
@@ -549,6 +514,7 @@ namespace Employees
         }
     }
 
+    [Serializable]
     public partial class CompHome : Page
     {
         //List<Employee> emps = InitialEmployees();
