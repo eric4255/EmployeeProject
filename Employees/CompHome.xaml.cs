@@ -171,6 +171,11 @@ namespace Employees
 
         public virtual void GetSpareProp1(ref string name, ref string value) { }
         public virtual void GetSpareProp2(ref string name, ref string value) { }
+        public virtual void GetSpareProp3(ref string name, ref string value) { }
+        public virtual void GetSpareProp4(ref string name, ref string value) { }
+        public virtual void GetSpareProp5(ref string name, ref string value) { }
+
+
         #region Employee sort oders
         // Sort employees by name.
         private class NameComparer : IComparer<Employee>
@@ -413,6 +418,11 @@ namespace Employees
           : base(firstName, lastName, age, currPay, ssn, numbOfSales)
         {
         }
+        public override void GetSpareProp4(ref string name, ref string value)
+        {
+            name = "Number of Sales:";
+            value = SalesNumber.ToString();
+        }
     }
 
     public class Engineer : Employee
@@ -431,6 +441,12 @@ namespace Employees
         }
         #endregion
         public override string Role { get { return base.Role; } }
+
+        public override void GetSpareProp3(ref string name, ref string value)
+        {
+            name = "Degree:";
+            value = HighestDegree.ToString();
+        }
     }
 
     class SalesPerson : Employee
@@ -479,6 +495,12 @@ namespace Employees
             base.DisplayStats();
             Console.WriteLine("Number of sales: {0:N0}", SalesNumber);
         }
+
+        public override void GetSpareProp4(ref string name, ref string value)
+        {
+            name = "Number of Sales:";
+            value = SalesNumber.ToString();
+        }
     }
     public class SupportPerson : Employee
     {
@@ -500,6 +522,12 @@ namespace Employees
         {
             base.DisplayStats();
             Console.WriteLine("Shift: {0}", Shift);
+        }
+
+        public override void GetSpareProp5(ref string name, ref string value)
+        {
+            name = "Shift:";
+            value = Shift.ToString();
         }
     }
 

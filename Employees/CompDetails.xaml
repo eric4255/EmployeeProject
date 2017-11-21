@@ -84,19 +84,37 @@
             </StackPanel>
 
 
-            <!-- Spare1 -->
+            <!-- Spare1 Stock Options for a manager-->
             <StackPanel Name="SpareProp1" Grid.Column="0" Grid.Row="8" Orientation="Horizontal" Visibility="Hidden">
                 <Label Name="SpareProp1Name" Style="{StaticResource labelStyle}">Stock Options:</Label>
                 <Label Name="SpareProp1Value" Style="{StaticResource labelStyle}" Content=""/>
             </StackPanel>
 
-            <!-- Spare2 -->
+            <!-- Spare2 Reports for a manager -->
             <StackPanel Name="SpareProp2" Grid.Column="0" Grid.Row="9" Orientation="Horizontal" Visibility="Hidden">
                 <Label Name="SpareProp2Name" Style="{StaticResource labelStyle}">Reports:</Label>
                 <Label Name="SpareProp2Value" Style="{StaticResource labelStyle}" Content=""/>
             </StackPanel>
-            
-            
+
+            <!-- Spare3 Degree for a engineer -->
+            <StackPanel Name="SpareProp3" Grid.Column="0" Grid.Row="8" Orientation="Horizontal" Visibility="Hidden">
+                <Label Name="SpareProp3Name" Style="{StaticResource labelStyle}">Degree:</Label>
+                <Label Name="SpareProp3Value" Style="{StaticResource labelStyle}" Content=""/>
+            </StackPanel>
+
+
+            <!-- Spare4 number of sales for a salesPerson/PTSalesPerson -->
+            <StackPanel Name="SpareProp4" Grid.Column="0" Grid.Row="8" Orientation="Horizontal" Visibility="Hidden">
+                <Label Name="SpareProp4Name" Style="{StaticResource labelStyle}">Number of Sales:</Label>
+                <Label Name="SpareProp4Value" Style="{StaticResource labelStyle}" Content=""/>
+            </StackPanel>
+
+            <!-- Spare5 shift for a SupportPerson-->
+            <StackPanel Name="SpareProp5" Grid.Column="0" Grid.Row="8" Orientation="Horizontal" Visibility="Hidden">
+                <Label Name="SpareProp5Name" Style="{StaticResource labelStyle}">Shift:</Label>
+                <Label Name="SpareProp5Value" Style="{StaticResource labelStyle}" Content=""/>
+            </StackPanel>
+
         </Grid>
      </Grid>
 </Page>
