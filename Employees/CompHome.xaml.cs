@@ -65,7 +65,7 @@ namespace Employees
             get { return empBenefits; }
         }
         #endregion
-        
+
         #region Serialization customization for NextId
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
@@ -94,7 +94,7 @@ namespace Employees
         {
             // Assume we have other members that represent
             // dental/health benefits, and so on.
-            
+
             public override string ToString() { return "Standard"; }
             public virtual double ComputePayDeduction() { return 125.0; }
         }
@@ -119,7 +119,7 @@ namespace Employees
         // Expose object through a custom property.
 
         public Employee() { }
-        public Employee(string firstName, string lastName, DateTime date, float pay,  string ssn)
+        public Employee(string firstName, string lastName, DateTime date, float pay, string ssn)
         {
             int id = empID;//provides unique id for each employee
             this.eID = id;
@@ -177,7 +177,7 @@ namespace Employees
                     throw new ArgumentException("Parameter is not an Employee!");
             }
         }
-#endregion
+        #endregion
         public virtual void DisplayStats()
         {
             Console.WriteLine("Name: {0}", Name);
@@ -210,7 +210,7 @@ namespace Employees
         }
         private List<Employee> _reports = new List<Employee>();
 
-        public Executive(string firstName, string lastName, DateTime age, float currPay, 
+        public Executive(string firstName, string lastName, DateTime age, float currPay,
                          string ssn, int numbOfOpts = 10000, ExecTitle title = ExecTitle.VP)
           : base(firstName, lastName, age, currPay, ssn, numbOfOpts)
         {
@@ -226,17 +226,24 @@ namespace Employees
             value = StockOptions.ToString();
         }
 
-
         public override void GetSpareProp2(ref string name, ref string value)
         {
             name = "Reports:";
-            foreach (Employee report in _reports)
-            {
-                value += string.Format("{0}, ", report.GetName());
-                //value += report.GetName() + ", ";
-            }
+            value = reports();
         }
 
+        private string reports()
+        {
+            string temp = "";
+            foreach (Employee report in _reports)
+            {
+                temp += string.Format("{0}, ", report.GetName());
+            }
+            if (temp.Length > 0)
+                return temp.Remove(temp.Length - 2);
+            else
+                return temp;
+        }
 
         // Methods for adding/removing reports
         public override void AddReport(Employee newReport)
@@ -293,14 +300,23 @@ namespace Employees
         public override void GetSpareProp2(ref string name, ref string value)
         {
             name = "Reports:";
-            foreach (Employee report in _reports)
-            {
-                //value = report.GetName();
-                value+= report.GetName()+", ";
-            } 
+            value = reports();
         }
 
-        
+        private string reports()
+        {
+            string temp = "";
+            foreach (Employee report in _reports)
+            {
+                temp += string.Format("{0}, ", report.GetName());
+            }
+            if (temp.Length > 0)
+                return temp.Remove(temp.Length - 2);
+            else
+                return temp;
+        }
+
+
         #region Exceptions
         // Exception raised when adding more than MaxReports to a Manager
         [System.Serializable]
@@ -400,7 +416,7 @@ namespace Employees
     sealed class PTSalesPerson : SalesPerson
     {
         public PTSalesPerson(string firstName, string lastName, DateTime age,
-                             float currPay,  string ssn, int numbOfSales)
+                             float currPay, string ssn, int numbOfSales)
           : base(firstName, lastName, age, currPay, ssn, numbOfSales)
         {
         }
@@ -419,8 +435,8 @@ namespace Employees
         public Engineer() { }
 
         public Engineer(string firstName, string lastName, DateTime age,
-                       float currPay,  string ssn, DegreeName degree)
-          : base(firstName, lastName, age, currPay,  ssn)
+                       float currPay, string ssn, DegreeName degree)
+          : base(firstName, lastName, age, currPay, ssn)
         {
             // This property is defined by the Engineer class.
             HighestDegree = degree;
@@ -443,7 +459,7 @@ namespace Employees
         // As a general rule, all subclasses should explicitly call an appropriate
         // base class constructor.
         public SalesPerson(string firstName, string lastName, DateTime age,
-          float currPay,  string ssn, int numbOfSales)
+          float currPay, string ssn, int numbOfSales)
           : base(firstName, lastName, age, currPay, ssn)
         {
             // This belongs with us!
@@ -497,8 +513,8 @@ namespace Employees
         #region constructors 
         public SupportPerson() { }
 
-        public SupportPerson(string firstName,string lastName, DateTime age,
-                             float currPay,  string ssn, ShiftName shift)
+        public SupportPerson(string firstName, string lastName, DateTime age,
+                             float currPay, string ssn, ShiftName shift)
           : base(firstName, lastName, age, currPay, ssn)
         {
             // This property is defined by the SupportPerson class.
@@ -530,7 +546,7 @@ namespace Employees
     {
         static BinaryFormatter binFormat = new BinaryFormatter();
 
-        string filename="Employees.dat";
+        string filename = "Employees.dat";
 
         static List<Employee> InitialEmployees()
         {
@@ -641,11 +657,6 @@ namespace Employees
             dgEmps.ItemsSource = empList;
         }
 
-        private void GoBackButton(object sender, RoutedEventArgs e)
-        {
-            // Add the following line of code.    
-        }
-
         private void Details_Click(object sender, RoutedEventArgs e)
         {
             // Show Employee details if one selected
@@ -659,9 +670,9 @@ namespace Employees
         {
             // Only choices are All (0) or Executives (1)
             if (this.employeeTypeRadioButtons.SelectedIndex == 1)
-                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is Executive||obj  is Manager);
-            else if(this.employeeTypeRadioButtons.SelectedIndex == 2)
-                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is SalesPerson|| obj is PTSalesPerson);
+                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is Executive || obj is Manager);
+            else if (this.employeeTypeRadioButtons.SelectedIndex == 2)
+                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is SalesPerson || obj is PTSalesPerson);
             else if (this.employeeTypeRadioButtons.SelectedIndex == 3)
                 dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is Engineer || obj is SupportPerson);
             else dgEmps.ItemsSource = empList;
