@@ -54,6 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EmployeeList.cs" />
+    <Compile Include="Executive.cs" />
+    <Compile Include="PTSalesPerson.cs" />
+    <Compile Include="SalesPerson.cs" />
+    <Compile Include="SupportPerson.cs" />
     <Page Include="CompDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +81,8 @@
     <Compile Include="CompHome.xaml.cs">
       <DependentUpon>CompHome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Manager.cs" />
+    <Compile Include="Engineer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
