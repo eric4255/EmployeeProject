@@ -28,9 +28,9 @@ namespace Employees
     public enum ExecTitle { CEO, CTO, CFO, VP }
     [Serializable]
     public enum ShiftName { One, Two, Three }
+
+
     [Serializable]
-
-
     public class Employee
     {
 
@@ -57,7 +57,7 @@ namespace Employees
         public string embBenefitPackage { get { return empBenefits.ToString(); } }
         public virtual string Role { get { return GetType().ToString().Substring(10); } }
         public string GetName()
-        { return FirstName; }
+        { return Name; }
 
         // Expose object through a read-only property.
         public BenefitPackage Benefits
@@ -107,6 +107,7 @@ namespace Employees
             public override double ComputePayDeduction() { return 150.0; }
             public override string ToString() { return "Gold"; }
         }
+        [Serializable]
         sealed public class PlatinumBenefitPackage : BenefitPackage
         {
             public override double ComputePayDeduction() { return 250.0; }
@@ -231,9 +232,31 @@ namespace Employees
             name = "Reports:";
             foreach (Employee report in _reports)
             {
-                //value = report.GetName();
-                value += report.GetName() + " ";
+                value += string.Format("{0}, ", report.GetName());
+                //value += report.GetName() + ", ";
             }
+        }
+
+
+        // Methods for adding/removing reports
+        public override void AddReport(Employee newReport)
+        {
+            // Check for proper report to Executive
+            if (newReport is Manager || newReport is SalesPerson)
+            {
+                _reports.Add(newReport);
+            }
+            else
+            {
+                Console.WriteLine("AddReport Error: {0} is not a Manager or SalesPerson, and cannot report to an Executive",
+                                  newReport.Name);
+            }
+        }
+
+        public override void RemoveReport(Employee emp)
+        {
+            // Remove report
+            _reports.Remove(emp);
         }
     }
 
@@ -273,7 +296,7 @@ namespace Employees
             foreach (Employee report in _reports)
             {
                 //value = report.GetName();
-                value+= report.GetName() +" ";
+                value+= report.GetName()+", ";
             } 
         }
 
@@ -549,16 +572,15 @@ namespace Employees
                 Console.WriteLine($"Error when adding reports: {e.Message}");
             }
 
-            Console.Write("\nReports by Age: ");
-
-            return new List<Employee>() { dan, connie, chucky, mary, bob, fran,
-                                          sam, sally, mike, steve};
+            return new List<Employee>() { dan, connie, chucky, mary, bob, fran, sam, sally, mike, steve };
+            //return new List<Employee>() { dan, connie, chucky };
         }
 
 
         public EmployeeList(string filename)
         {
             this.filename = filename;
+            File.Delete(filename);
 
             if (File.Exists(filename))
             {
