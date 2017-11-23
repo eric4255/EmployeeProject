@@ -129,8 +129,8 @@ namespace Employees
             LastName = lastName;
         }
 
-        public virtual void GetSpareProp1(ref string name, ref string value) { }
-        public virtual void GetSpareProp2(ref string name, ref string value) { }
+        public virtual void SpareDetailProp1(ref string name, ref string value) { }
+        public virtual void SpareDetailProp2(ref string name, ref string value) { }
         public virtual void GetSpareProp3(ref string name, ref string value) { }
         public virtual void GetSpareProp4(ref string name, ref string value) { }
         public virtual void GetSpareProp5(ref string name, ref string value) { }
@@ -231,14 +231,37 @@ namespace Employees
         // Handle changes to Employee type radio buttons
         void employeeTypeRadioButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Only choices are All (0) or Executives (1)
-            if (this.employeeTypeRadioButtons.SelectedIndex == 1)
-                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is Manager);
-            else if (this.employeeTypeRadioButtons.SelectedIndex == 2)
-                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is SalesPerson);
-            else if (this.employeeTypeRadioButtons.SelectedIndex == 3)
-                dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is Engineer || obj is SupportPerson);
-            else dgEmps.ItemsSource = empList;
+            RefreshEmployeeList();
+        }
+
+        // Filter Employee list according to radio button setting
+        void RefreshEmployeeList()
+        {
+            // Apply the selection
+            switch (this.employeeTypeRadioButtons.SelectedIndex)
+            {
+                // Managers
+                case 1:
+                    dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is Manager);
+                    break;
+
+                // Sales
+                case 2:
+                    dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => obj is SalesPerson);
+                    break;
+
+                // Other
+                case 3:
+                    dgEmps.ItemsSource = (List<Employee>)empList.FindAll(obj => !(obj is Manager || obj is SalesPerson));
+                    break;
+
+                // All 
+                default:
+                    dgEmps.ItemsSource = empList;
+                    break;
+            }
+
+            dgEmps.Items.Refresh();
         }
     }
 }

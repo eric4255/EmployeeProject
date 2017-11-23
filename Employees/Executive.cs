@@ -43,13 +43,13 @@ namespace Employees
         }
 
         public override string Role { get { return base.Role + ", " + Title; } }
-        public override void GetSpareProp1(ref string name, ref string value)
+        public override void SpareDetailProp1(ref string name, ref string value)
         {
             name = "Stock Options:";
             value = StockOptions.ToString();
         }
 
-        public override void GetSpareProp2(ref string name, ref string value)
+        public override void SpareDetailProp2(ref string name, ref string value)
         {
             name = "Reports:";
             value = reports();

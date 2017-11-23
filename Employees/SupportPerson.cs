@@ -43,7 +43,7 @@ namespace Employees
             Console.WriteLine("Shift: {0}", Shift);
         }
 
-        public override void GetSpareProp5(ref string name, ref string value)
+        public override void SpareDetailProp1(ref string name, ref string value)
         {
             name = "Shift:";
             value = Shift.ToString();

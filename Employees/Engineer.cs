@@ -24,7 +24,7 @@ namespace Employees
         #endregion
         public override string Role { get { return base.Role; } }
 
-        public override void GetSpareProp3(ref string name, ref string value)
+        public override void SpareDetailProp1(ref string name, ref string value)
         {
             name = "Degree:";
             value = HighestDegree.ToString();

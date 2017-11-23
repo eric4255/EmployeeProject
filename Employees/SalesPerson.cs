@@ -67,9 +67,9 @@ namespace Employees
             Console.WriteLine("Number of sales: {0:N0}", SalesNumber);
         }
 
-        public override void GetSpareProp4(ref string name, ref string value)
+        public override void SpareDetailProp1(ref string name, ref string value)
         {
-            name = "Number of Sales:";
+            name = "Sales Number:";
             value = SalesNumber.ToString();
         }
     }
